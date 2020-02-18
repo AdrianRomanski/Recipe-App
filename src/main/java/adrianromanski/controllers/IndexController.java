@@ -1,16 +1,14 @@
 package adrianromanski.controllers;
 
-import adrianromanski.domain.Category;
-import adrianromanski.domain.UnitOfMeasure;
-import adrianromanski.repositories.CategoryRepository;
-import adrianromanski.repositories.UnitOfMeasureRepository;
+
 import adrianromanski.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
 
+@Slf4j
 @Controller
 public class IndexController {
 
@@ -23,7 +21,9 @@ public class IndexController {
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage(Model model) {
 
+
        model.addAttribute("recipes", recipeService.getRecipes());
+       log.info("Getting index page");
 
         return "index";
     }
