@@ -17,13 +17,13 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
+<!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                         <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
                     </div>
                     <div class="panel-body">
@@ -35,7 +35,6 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                     <li th:each="categorie : ${recipe.categories}" th:text="${categorie.getDescription()}">cat three</li>
                                 </ul>
                             </div>
@@ -45,14 +44,12 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${(recipe.prepTime) + ' Min'}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${recipe.difficulty}">Easy</p>
                             </div>
                         </div>
@@ -61,14 +58,12 @@
                                 <h5>Cooktime:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${(recipe.cookTime)  + ' Min'}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Servings:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${recipe.servings}">4</p>
                             </div>
                         </div>
@@ -77,14 +72,12 @@
                                 <h5>Source:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${recipe.source}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${recipe.url}">http://www.example.com</p>
                             </div>
                         </div>
@@ -92,7 +85,14 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" >Ingredients</h1>
+                        <div class="row">
+                            <div class="col-md-11 ">
+                                <h1 class="panel-title">Ingredients</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -100,7 +100,6 @@
                                 <ul>
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                     <li th:each="ingredient: ${recipe.ingredients}"
                                         th:text="${ ingredient.getAmount() +
                                         ' ' + ingredient.unitOfMeasure.getDescription() +
@@ -117,7 +116,6 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text="${recipe.directions}">Directions.</p>
                             </div>
                         </div>
@@ -130,7 +128,6 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <!--/*@thymesVar id="recipe" type="adrianromanski.domain.Recipe"*/-->
                                 <p th:text ="${recipe.notes.recipeNotes}">Notes</p>
                             </div>
                         </div>
