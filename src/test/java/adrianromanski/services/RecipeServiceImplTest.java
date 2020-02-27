@@ -72,18 +72,30 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipes() {
+    public void getRecipesTest() throws Exception {
 
         Recipe recipe = new Recipe();
-        HashSet recipesData = new HashSet();
-        recipesData.add(recipe);
+        HashSet receipesData = new HashSet();
+        receipesData.add(recipe);
+
+        when(recipeRepository.findAll()).thenReturn(receipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
 
-        when(recipeRepository.findAll()).thenReturn(recipesData);
-
-
+        assertEquals(recipes.size(), 1);
         verify(recipeRepository, times(1)).findAll();
         verify(recipeRepository, never()).findById(anyLong());
+    }
+
+    @Test
+    public void testDeleteById() throws Exception {
+        //Given
+        Long idToDelete = 2L;
+
+        //When
+        recipeService.deleteById(idToDelete);
+
+        //Then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }
