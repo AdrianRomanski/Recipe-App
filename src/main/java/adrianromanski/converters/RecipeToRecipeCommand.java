@@ -1,14 +1,12 @@
 package adrianromanski.converters;
 
 import adrianromanski.commands.RecipeCommand;
+import adrianromanski.domain.Category;
 import adrianromanski.domain.Recipe;
-
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 @Component
 public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
@@ -17,7 +15,8 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
     private final IngredientToIngredientCommand ingredientConverter;
     private final NotesToNotesCommand notesConverter;
 
-    public RecipeToRecipeCommand(CategoryToCategoryCommand categoryConveter, IngredientToIngredientCommand ingredientConverter, NotesToNotesCommand notesConverter) {
+    public RecipeToRecipeCommand(CategoryToCategoryCommand categoryConveter, IngredientToIngredientCommand ingredientConverter,
+                                 NotesToNotesCommand notesConverter) {
         this.categoryConveter = categoryConveter;
         this.ingredientConverter = ingredientConverter;
         this.notesConverter = notesConverter;
@@ -27,7 +26,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
     @Nullable
     @Override
     public RecipeCommand convert(Recipe source) {
-        if(source == null) {
+        if (source == null) {
             return null;
         }
 
@@ -43,18 +42,16 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
         command.setUrl(source.getUrl());
         command.setNotes(notesConverter.convert(source.getNotes()));
 
-        if(source.getCategories() != null && source.getCategories().size() > 0) {
+        if (source.getCategories() != null && source.getCategories().size() > 0){
             source.getCategories()
-                    .forEach(category -> command.getCategories().add(categoryConveter.convert(category)));
+                    .forEach((Category category) -> command.getCategories().add(categoryConveter.convert(category)));
         }
 
-        if(source.getIngredients() != null && source.getIngredients().size() > 0) {
+        if (source.getIngredients() != null && source.getIngredients().size() > 0){
             source.getIngredients()
                     .forEach(ingredient -> command.getIngredients().add(ingredientConverter.convert(ingredient)));
         }
 
         return command;
-
-
     }
 }

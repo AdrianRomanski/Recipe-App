@@ -7,10 +7,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-
-
 @Component
 public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
+
     private final CategoryCommandToCategory categoryConverter;
     private final IngredientCommandToIngredient ingredientConverter;
     private final NotesCommandToNotes notesConverter;
@@ -29,6 +28,7 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         if (source == null) {
             return null;
         }
+
         final Recipe recipe = new Recipe();
         recipe.setId(source.getId());
         recipe.setCookTime(source.getCookTime());
@@ -54,4 +54,3 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         return recipe;
     }
 }
-

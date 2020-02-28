@@ -14,13 +14,5 @@ public class UnitOfMeasure {
 
     private String description;
 
-
-    public String getUnitOfMeasure() {
-        return description;
-    }
-
-    public void setUnitOfMeasure(String unitOfMeasure) {
-        this.description = unitOfMeasure;
-    }
 }
 

@@ -1,9 +1,9 @@
 package adrianromanski.commands;
 
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Getter
 @Setter
@@ -11,4 +11,5 @@ import lombok.Setter;
 public class NotesCommand {
     private Long id;
     private String recipeNotes;
+
 }

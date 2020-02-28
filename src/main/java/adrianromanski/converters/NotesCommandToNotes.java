@@ -3,10 +3,9 @@ package adrianromanski.converters;
 import adrianromanski.commands.NotesCommand;
 import adrianromanski.domain.Notes;
 import lombok.Synchronized;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import org.springframework.core.convert.converter.Converter;
-
 
 @Component
 public class NotesCommandToNotes implements Converter<NotesCommand, Notes> {
@@ -23,6 +22,5 @@ public class NotesCommandToNotes implements Converter<NotesCommand, Notes> {
         notes.setId(source.getId());
         notes.setRecipeNotes(source.getRecipeNotes());
         return notes;
-
     }
 }

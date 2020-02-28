@@ -1,9 +1,7 @@
 package adrianromanski.converters;
 
-
 import adrianromanski.commands.CategoryCommand;
 import adrianromanski.domain.Category;
-
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
@@ -16,10 +14,9 @@ public class CategoryCommandToCategory implements Converter<CategoryCommand, Cat
     @Nullable
     @Override
     public Category convert(CategoryCommand source) {
-        if(source == null) {
+        if (source == null) {
             return null;
         }
-
         final Category category = new Category();
         category.setId(source.getId());
         category.setDescription(source.getDescription());
