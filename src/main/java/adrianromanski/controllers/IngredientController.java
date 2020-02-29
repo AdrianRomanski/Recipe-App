@@ -1,6 +1,8 @@
 package adrianromanski.controllers;
 
 import adrianromanski.commands.IngredientCommand;
+import adrianromanski.commands.RecipeCommand;
+import adrianromanski.commands.UnitOfMeasureCommand;
 import adrianromanski.services.IngredientService;
 import adrianromanski.services.RecipeService;
 import adrianromanski.services.UnitOfMeasureService;
@@ -40,6 +42,27 @@ public class IngredientController {
                                        @PathVariable String id, Model model){
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+
+        // make sure we have a good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+        // to do raise exception if null
+
+        // need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        // init uom
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUom());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping
