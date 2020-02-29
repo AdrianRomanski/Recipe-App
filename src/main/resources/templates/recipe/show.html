@@ -24,19 +24,35 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                            </div>
+
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <li th:each="categorie : ${recipe.categories}" th:text="${categorie.getDescription()}">cat three</li>
+                                    <li th:each="category : ${recipe.categories}"
+                                        th:text="${category.getDescription()}">cat three
+                                    </li>
                                 </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                     th:src="@{/images/guacamole400x400WithX.jpg}"
+                                     width="200" height="200">
                             </div>
                         </div>
                         <div class="row">
@@ -44,7 +60,7 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recipe.prepTime) + ' Min'}">30 min</p>
+                                <p th:text="${(recipe.prepTime) +  '  Min'}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Difficulty:</h5>
@@ -58,7 +74,7 @@
                                 <h5>Cooktime:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recipe.cookTime)  + ' Min'}">30 min</p>
+                                <p th:text="${(recipe.cookTime  +  '  Min')}">30 min</p>
                             </div>
                             <div class="col-md-3">
                                 <h5>Servings:</h5>
@@ -78,7 +94,7 @@
                                 <h5>URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.url}">http://www.example.com</p>
+                                <p><a href="#" th:href="@{recipe.url}">View Original</a></p>
                             </div>
                         </div>
                     </div>
@@ -90,7 +106,8 @@
                                 <h1 class="panel-title">Ingredients</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                             </div>
                         </div>
                     </div>
@@ -100,10 +117,11 @@
                                 <ul>
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <li th:each="ingredient: ${recipe.ingredients}"
-                                        th:text="${ ingredient.getAmount() +
-                                        ' ' + ingredient.getUom().getDescription() +
-                                        ' - ' + ingredient.getDescription()}">1 Teaspoon of Sugar</li>
+                                    <li th:each="ingredient : ${recipe.ingredients}"
+                                        th:text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.uom.getDescription() +
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -111,24 +129,24 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" >Directions</h1>
+                        <h1 class="panel-title">Directions</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.directions}">Directions.</p>
+                                <p th:text="${recipe.directions}">Recipe description</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" >Notes</h1>
+                        <h1 class="panel-title">Notes</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text ="${recipe.notes.recipeNotes}">Notes</p>
+                                <p th:text="${recipe.notes.recipeNotes}">Recipe notes</p>
                             </div>
                         </div>
                     </div>
@@ -138,4 +156,3 @@
     </div>
 </div>
 </body>
-</html>
