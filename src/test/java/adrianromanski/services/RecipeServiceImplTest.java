@@ -4,6 +4,7 @@ import adrianromanski.commands.RecipeCommand;
 import adrianromanski.converters.RecipeCommandToRecipe;
 import adrianromanski.converters.RecipeToRecipeCommand;
 import adrianromanski.domain.Recipe;
+import adrianromanski.exceptions.NotFoundException;
 import adrianromanski.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -75,10 +76,10 @@ public class RecipeServiceImplTest {
     public void getRecipesTest() throws Exception {
 
         Recipe recipe = new Recipe();
-        HashSet receipesData = new HashSet();
-        receipesData.add(recipe);
+        HashSet recipesData = new HashSet();
+        recipesData.add(recipe);
 
-        when(recipeRepository.findAll()).thenReturn(receipesData);
+        when(recipeRepository.findAll()).thenReturn(recipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
 
@@ -97,5 +98,16 @@ public class RecipeServiceImplTest {
 
         //Then
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipesIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+        // boom
     }
 }
