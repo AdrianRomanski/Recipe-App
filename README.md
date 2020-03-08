@@ -1,3 +1,3 @@
 # Recipe-App
 
-834b32ae-108d-4447-958d-7ae34cbbdbf5
+[![CircleCI](https://circleci.com/gh/AdrianRomanski/Recipe-App.svg?style=svg)](https://circleci.com/gh/AdrianRomanski/Recipe-App)
