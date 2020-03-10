@@ -1,7 +1,7 @@
 package adrianromanski.converters;
 
-import adrianromanski.commands.RecipeCommand;
 import adrianromanski.domain.*;
+import adrianromanski.commands.RecipeCommand;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,46 +9,43 @@ import static org.junit.Assert.*;
 
 public class RecipeToRecipeCommandTest {
 
-    private static final String RECIPE_ID = "1L";
-    private static final Integer COOK_TIME = Integer.valueOf("5");
-    private static final Integer PREP_TIME = Integer.valueOf("7");
-    private static final String DESCRIPTION = "My Recipe";
-    private static final String DIRECTIONS = "Directions";
-    private static final Difficulty DIFFICULTY = Difficulty.EASY;
-    private static final Integer SERVINGS = Integer.valueOf("3");
-    private static final String SOURCE = "Source";
-    private static final String URL = "Some URL";
-    private static final String CAT_ID_1 = "1L";
-    private static final String CAT_ID2 = "2L";
-    private static final String INGRED_ID_1 = "3L";
-    private static final String INGRED_ID_2 = "4L";
-    private static final String NOTES_ID = "9L";
-    private RecipeToRecipeCommand converter;
-
+    public static final String RECIPE_ID = "1";
+    public static final Integer COOK_TIME = Integer.valueOf("5");
+    public static final Integer PREP_TIME = Integer.valueOf("7");
+    public static final String DESCRIPTION = "My Recipe";
+    public static final String DIRECTIONS = "Directions";
+    public static final Difficulty DIFFICULTY = Difficulty.EASY;
+    public static final Integer SERVINGS = Integer.valueOf("3");
+    public static final String SOURCE = "Source";
+    public static final String URL = "Some URL";
+    public static final String CAT_ID_1 = "1";
+    public static final String CAT_ID2 = "2";
+    public static final String INGRED_ID_1 = "3";
+    public static final String INGRED_ID_2 = "4";
+    public static final String NOTES_ID = "9";
+    RecipeToRecipeCommand converter;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         converter = new RecipeToRecipeCommand(
                 new CategoryToCategoryCommand(),
                 new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand()),
-                new NotesToNotesCommand()
-        );
+                new NotesToNotesCommand());
     }
 
     @Test
-    public void testNullObject() {
+    public void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
+    public void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new Recipe()));
     }
 
-
     @Test
-    public void convert() {
-        // Given
+    public void convert() throws Exception {
+        //given
         Recipe recipe = new Recipe();
         recipe.setId(RECIPE_ID);
         recipe.setCookTime(COOK_TIME);
@@ -83,10 +80,10 @@ public class RecipeToRecipeCommandTest {
         recipe.getIngredients().add(ingredient);
         recipe.getIngredients().add(ingredient2);
 
-        //When
+        //when
         RecipeCommand command = converter.convert(recipe);
 
-        //Then
+        //then
         assertNotNull(command);
         assertEquals(RECIPE_ID, command.getId());
         assertEquals(COOK_TIME, command.getCookTime());
@@ -100,5 +97,7 @@ public class RecipeToRecipeCommandTest {
         assertEquals(NOTES_ID, command.getNotes().getId());
         assertEquals(2, command.getCategories().size());
         assertEquals(2, command.getIngredients().size());
+
     }
+
 }

@@ -36,7 +36,7 @@ public class ImageControllerTest {
 
         controller = new ImageController(imageService, recipeService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
-                .setControllerAdvice(ControllerExceptionHandler.class)
+                .setControllerAdvice(new ControllerExceptionHandler())
                 .build();
     }
 
@@ -44,7 +44,7 @@ public class ImageControllerTest {
     public void getImageForm() throws Exception {
         //given
         RecipeCommand command = new RecipeCommand();
-        command.setId("String");
+        command.setId("1");
 
         when(recipeService.findCommandById(anyString())).thenReturn(command);
 
@@ -70,12 +70,13 @@ public class ImageControllerTest {
         verify(imageService, times(1)).saveImageFile(anyString(), any());
     }
 
+
     @Test
     public void renderImageFromDB() throws Exception {
 
         //given
         RecipeCommand command = new RecipeCommand();
-        command.setId("String");
+        command.setId("1");
 
         String s = "fake image text";
         Byte[] bytesBoxed = new Byte[s.getBytes().length];
@@ -95,19 +96,9 @@ public class ImageControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse();
 
-        byte[] responseBytes = response.getContentAsByteArray();
+        byte[] reponseBytes = response.getContentAsByteArray();
 
-        assertEquals(s.getBytes().length, responseBytes.length);
+        assertEquals(s.getBytes().length, reponseBytes.length);
     }
-
-    @Test
-    public void testGetImageNumberFormatException() throws Exception {
-
-        mockMvc.perform(get("/recipe/first/recipeimage"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("400error"));
-    }
-
-
 
 }

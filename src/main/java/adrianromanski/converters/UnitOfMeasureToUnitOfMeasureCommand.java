@@ -16,10 +16,10 @@ public class UnitOfMeasureToUnitOfMeasureCommand implements Converter<UnitOfMeas
     public UnitOfMeasureCommand convert(UnitOfMeasure unitOfMeasure) {
 
         if (unitOfMeasure != null) {
-            final UnitOfMeasureCommand uom = new UnitOfMeasureCommand();
-            uom.setId(unitOfMeasure.getId());
-            uom.setDescription(unitOfMeasure.getDescription());
-            return uom;
+            final UnitOfMeasureCommand uomc = new UnitOfMeasureCommand();
+            uomc.setId(unitOfMeasure.getId());
+            uomc.setDescription(unitOfMeasure.getDescription());
+            return uomc;
         }
         return null;
     }

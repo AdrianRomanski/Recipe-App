@@ -1,7 +1,7 @@
 package adrianromanski.converters;
 
-import adrianromanski.commands.CategoryCommand;
 import adrianromanski.domain.Category;
+import adrianromanski.commands.CategoryCommand;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,36 +9,36 @@ import static org.junit.Assert.*;
 
 public class CategoryCommandToCategoryTest {
 
-    private static final String ID_VALUE = "1L";
-    private static final String DESCRIPTION = "description";
-    CategoryCommandToCategory converter;
+    public static final String ID_VALUE = "1";
+    public static final String DESCRIPTION = "description";
+    CategoryCommandToCategory conveter;
 
     @Before
     public void setUp() throws Exception {
-        converter = new CategoryCommandToCategory();
+        conveter = new CategoryCommandToCategory();
     }
 
     @Test
-    public void testNullObject() {
-        assertNull(converter.convert(null));
+    public void testNullObject() throws Exception {
+        assertNull(conveter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
-        assertNotNull(converter.convert(new CategoryCommand()));
+    public void testEmptyObject() throws Exception {
+        assertNotNull(conveter.convert(new CategoryCommand()));
     }
 
     @Test
-    public void convert() {
-        // Given
+    public void convert() throws Exception {
+        //given
         CategoryCommand categoryCommand = new CategoryCommand();
         categoryCommand.setId(ID_VALUE);
         categoryCommand.setDescription(DESCRIPTION);
 
-        // When
-        Category category = converter.convert(categoryCommand);
+        //when
+        Category category = conveter.convert(categoryCommand);
 
-        // Then
+        //then
         assertEquals(ID_VALUE, category.getId());
         assertEquals(DESCRIPTION, category.getDescription());
     }

@@ -6,5 +6,5 @@ import java.util.Set;
 
 public interface UnitOfMeasureService {
 
-    Set<UnitOfMeasureCommand> listAllUom();
+    Set<UnitOfMeasureCommand> listAllUoms();
 }

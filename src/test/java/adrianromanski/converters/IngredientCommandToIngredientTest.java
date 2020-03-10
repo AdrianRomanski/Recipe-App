@@ -16,11 +16,10 @@ public class IngredientCommandToIngredientTest {
     public static final Recipe RECIPE = new Recipe();
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
-    public static final String ID_VALUE = "1L";
-    public static final String UOM_ID = "2L";
+    public static final String ID_VALUE = "1";
+    public static final String UOM_ID = "2";
 
     IngredientCommandToIngredient converter;
-
 
     @Before
     public void setUp() throws Exception {
@@ -28,18 +27,18 @@ public class IngredientCommandToIngredientTest {
     }
 
     @Test
-    public void testNullObject() {
+    public void testNullObject() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
+    public void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new IngredientCommand()));
     }
 
     @Test
-    public void convertWithUOM() {
-        // Given
+    public void convert() throws Exception {
+        //given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
@@ -48,10 +47,10 @@ public class IngredientCommandToIngredientTest {
         unitOfMeasureCommand.setId(UOM_ID);
         command.setUom(unitOfMeasureCommand);
 
-        // When
+        //when
         Ingredient ingredient = converter.convert(command);
 
-        // Then
+        //then
         assertNotNull(ingredient);
         assertNotNull(ingredient.getUom());
         assertEquals(ID_VALUE, ingredient.getId());
@@ -61,21 +60,24 @@ public class IngredientCommandToIngredientTest {
     }
 
     @Test
-    public void convertWithNullUOM() {
-        // Given
+    public void convertWithNullUOM() throws Exception {
+        //given
         IngredientCommand command = new IngredientCommand();
         command.setId(ID_VALUE);
         command.setAmount(AMOUNT);
         command.setDescription(DESCRIPTION);
-        command.setUom(null);
+        UnitOfMeasureCommand unitOfMeasureCommand = new UnitOfMeasureCommand();
 
-        // When
+
+        //when
         Ingredient ingredient = converter.convert(command);
 
+        //then
         assertNotNull(ingredient);
         assertNull(ingredient.getUom());
         assertEquals(ID_VALUE, ingredient.getId());
         assertEquals(AMOUNT, ingredient.getAmount());
         assertEquals(DESCRIPTION, ingredient.getDescription());
     }
+
 }

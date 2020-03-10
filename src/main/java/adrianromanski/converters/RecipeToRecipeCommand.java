@@ -1,7 +1,7 @@
 package adrianromanski.converters;
 
-import adrianromanski.commands.RecipeCommand;
 import adrianromanski.domain.Category;
+import adrianromanski.commands.RecipeCommand;
 import adrianromanski.domain.Recipe;
 import lombok.Synchronized;
 import org.springframework.core.convert.converter.Converter;
@@ -9,7 +9,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand> {
+public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 
     private final CategoryToCategoryCommand categoryConveter;
     private final IngredientToIngredientCommand ingredientConverter;

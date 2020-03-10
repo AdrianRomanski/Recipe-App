@@ -1,11 +1,11 @@
 package adrianromanski.services;
 
-import adrianromanski.commands.RecipeCommand;
 import adrianromanski.converters.RecipeCommandToRecipe;
 import adrianromanski.converters.RecipeToRecipeCommand;
-import adrianromanski.domain.Recipe;
 import adrianromanski.exceptions.NotFoundException;
 import adrianromanski.repositories.RecipeRepository;
+import adrianromanski.commands.RecipeCommand;
+import adrianromanski.domain.Recipe;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,12 +38,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Recipe findById(String l) {
+    public Recipe findById(String id) {
 
-        Optional<Recipe> recipeOptional = recipeRepository.findById(l);
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
-            throw new NotFoundException("Recipe not found. For ID value: " + l.toString());
+            throw new NotFoundException("Recipe Not Found. For ID value: " + id );
         }
 
         return recipeOptional.get();
@@ -51,8 +51,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     @Transactional
-    public RecipeCommand findCommandById(String l) {
-        return recipeToRecipeCommand.convert(findById(l));
+    public RecipeCommand findCommandById(String id) {
+        return recipeToRecipeCommand.convert(findById(id));
     }
 
     @Override

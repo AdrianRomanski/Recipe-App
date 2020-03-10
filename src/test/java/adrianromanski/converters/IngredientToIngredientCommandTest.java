@@ -11,16 +11,17 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
+
 public class IngredientToIngredientCommandTest {
 
     public static final Recipe RECIPE = new Recipe();
     public static final BigDecimal AMOUNT = new BigDecimal("1");
     public static final String DESCRIPTION = "Cheeseburger";
-    public static final String ID_VALUE = "1L";
-    public static final String UOM_ID = "2L";
+    public static final String UOM_ID = "2";
+    public static final String ID_VALUE = "1";
+
 
     IngredientToIngredientCommand converter;
-
 
     @Before
     public void setUp() throws Exception {
@@ -28,12 +29,12 @@ public class IngredientToIngredientCommandTest {
     }
 
     @Test
-    public void testNullConvert() {
+    public void testNullConvert() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
+    public void testEmptyObject() throws Exception {
         assertNotNull(converter.convert(new Ingredient()));
     }
 
@@ -42,7 +43,6 @@ public class IngredientToIngredientCommandTest {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
-        ingredient.setRecipe(RECIPE);
         ingredient.setAmount(AMOUNT);
         ingredient.setDescription(DESCRIPTION);
         ingredient.setUom(null);
@@ -51,31 +51,29 @@ public class IngredientToIngredientCommandTest {
         //then
         assertNull(ingredientCommand.getUom());
         assertEquals(ID_VALUE, ingredientCommand.getId());
-        // assertEquals(RECIPE, ingredientCommand.get);
         assertEquals(AMOUNT, ingredientCommand.getAmount());
         assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }
-    @Test
-    public void convertWithUOM() {
 
-        // Given
+    @Test
+    public void testConvertWithUom() throws Exception {
+        //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
-        ingredient.setRecipe(RECIPE);
         ingredient.setAmount(AMOUNT);
         ingredient.setDescription(DESCRIPTION);
 
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setId(UOM_ID);
+
         ingredient.setUom(uom);
-
-        //When
+        //when
         IngredientCommand ingredientCommand = converter.convert(ingredient);
-
-        //Then
+        //then
         assertEquals(ID_VALUE, ingredientCommand.getId());
         assertNotNull(ingredientCommand.getUom());
         assertEquals(UOM_ID, ingredientCommand.getUom().getId());
+        // assertEquals(RECIPE, ingredientCommand.get);
         assertEquals(AMOUNT, ingredientCommand.getAmount());
         assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }

@@ -1,8 +1,8 @@
 package adrianromanski.services;
 
-import adrianromanski.commands.UnitOfMeasureCommand;
 import adrianromanski.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import adrianromanski.repositories.UnitOfMeasureRepository;
+import adrianromanski.commands.UnitOfMeasureCommand;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -21,7 +21,7 @@ public class UnitOfMeasureServiceImpl implements UnitOfMeasureService {
     }
 
     @Override
-    public Set<UnitOfMeasureCommand> listAllUom() {
+    public Set<UnitOfMeasureCommand> listAllUoms() {
 
         return StreamSupport.stream(unitOfMeasureRepository.findAll()
                 .spliterator(), false)

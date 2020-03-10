@@ -7,10 +7,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+
 public class UnitOfMeasureToUnitOfMeasureCommandTest {
 
-    private static final String DESCRIPTION = "description";
-    private static final String LONG_VALUE = "1L";
+    public static final String DESCRIPTION = "description";
+    public static final String LONG_VALUE = "1";
 
     UnitOfMeasureToUnitOfMeasureCommand converter;
 
@@ -20,28 +21,27 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
     }
 
     @Test
-    public void testNullParameter() {
+    public void testNullObjectConvert() throws Exception {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
+    public void testEmptyObj() throws Exception {
         assertNotNull(converter.convert(new UnitOfMeasure()));
     }
 
     @Test
-    public void convert() {
-        // Given
+    public void convert() throws Exception {
+        //given
         UnitOfMeasure uom = new UnitOfMeasure();
         uom.setId(LONG_VALUE);
         uom.setDescription(DESCRIPTION);
+        //when
+        UnitOfMeasureCommand uomc = converter.convert(uom);
 
-        // When
-        UnitOfMeasureCommand command = converter.convert(uom);
-
-        // Then
-        assertNotNull(command);
-        assertEquals(LONG_VALUE, command.getId());
-        assertEquals(DESCRIPTION, command.getDescription());
+        //then
+        assertEquals(LONG_VALUE, uomc.getId());
+        assertEquals(DESCRIPTION, uomc.getDescription());
     }
+
 }

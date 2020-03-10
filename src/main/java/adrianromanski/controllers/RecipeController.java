@@ -17,55 +17,52 @@ import javax.validation.Valid;
 @Controller
 public class RecipeController {
 
-    private final String RECIPE_FORM_URL = "recipe/recipeform";
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{id}/show")
+    @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model){
 
         model.addAttribute("recipe", recipeService.findById(id));
+
         return "recipe/show";
     }
 
-    @GetMapping
-    @RequestMapping("recipe/new")
+    @GetMapping("recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
 
-        return RECIPE_FORM_URL;
+        return "recipe/recipeform";
     }
 
-    @GetMapping
-    @RequestMapping("recipe/{id}/update")
+    @GetMapping("recipe/{id}/update")
     public String updateRecipe(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.findCommandById(id));
-        return  RECIPE_FORM_URL;
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping("recipe")
     public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand command, BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()){
+
             bindingResult.getAllErrors().forEach(objectError -> {
                 log.debug(objectError.toString());
             });
 
-            return RECIPE_FORM_URL;
+            return RECIPE_RECIPEFORM_URL;
         }
-
 
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("recipe/{id}/delete")
+    @GetMapping("recipe/{id}/delete")
     public String deleteById(@PathVariable String id){
 
         log.debug("Deleting id: " + id);
@@ -76,7 +73,7 @@ public class RecipeController {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception) {
+    public ModelAndView handleNotFound(Exception exception){
 
         log.error("Handling not found exception");
         log.error(exception.getMessage());
@@ -88,4 +85,5 @@ public class RecipeController {
 
         return modelAndView;
     }
+
 }

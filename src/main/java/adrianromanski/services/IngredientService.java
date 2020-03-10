@@ -8,5 +8,5 @@ public interface IngredientService {
 
     IngredientCommand saveIngredientCommand(IngredientCommand command);
 
-    void deleteById(String recipeId, String ingredientId);
+    void deleteById(String recipeId, String idToDelete);
 }
