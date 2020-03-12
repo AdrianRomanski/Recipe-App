@@ -10,9 +10,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -29,9 +26,8 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Flux<Recipe> getRecipes() {
-        log.debug("I'm in the service");
+        log.debug("Getting List of Recipes");
 
-        Set<Recipe> recipeSet = new HashSet<>();
         return recipeReactiveRepository.findAll();
     }
 
